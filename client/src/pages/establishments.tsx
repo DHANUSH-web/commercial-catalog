@@ -59,7 +59,7 @@ export default function Establishments() {
       const data = await getEstablishmentsData(filters, sortBy);
       setEstablishments(data);
       
-      // Load attachment counts for each establishment
+      // Load attachment counts for each establishment using Supabase
       const counts: Record<string, number> = {};
       await Promise.all(
         data.map(async (establishment) => {
@@ -72,6 +72,7 @@ export default function Establishments() {
           }
         })
       );
+      
       setAttachmentCounts(counts);
     } catch (error: any) {
       toast({

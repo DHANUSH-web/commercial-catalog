@@ -107,17 +107,18 @@ export default function EstablishmentDetails() {
       setIsUploading(true);
       
       // Upload file with progress tracking
-      const attachment = await uploadFileData(
+      await uploadFileData(
         file,
         establishment.id,
         currentUser.uid,
         (progress) => setUploadProgress(progress)
       );
       
-      // Add to attachments list
-      setAttachments((prev) => [...prev, attachment]);
+      // Refresh attachments list
+      const updatedAttachments = await getAttachmentsData(establishment.id);
+      setAttachments(updatedAttachments);
       
-      // Close modal
+      // Close modal and reset state
       setShowUploadModal(false);
       setUploadProgress(0);
       
